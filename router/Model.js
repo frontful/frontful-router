@@ -2,11 +2,11 @@ import queryString from 'query-string'
 import {Exception} from './Exception'
 import {model, format} from 'frontful-model'
 import {untracked, action} from 'mobx'
+import {isBrowser} from 'frontful-utils'
 
 @model.config((context) => ({
   config: Object.assign({
     mapping: {},
-    server: null
   }, context.config['frontful-router']),
 }))
 @model.format({
@@ -29,7 +29,7 @@ class Model {
     const injections = Object.keys(query).reduce((injections, key) => {
       let setupQuery = this.queries[key]
       if (setupQuery && !setupQuery.isInjection) {
-        if (!this.server) {
+        if (isBrowser()) {
           setupQuery.responder(query[key])
         }
         executed = true
@@ -108,7 +108,7 @@ class Model {
     path += queryStr ? '?' + queryStr : ''
 
     if (this.path !== path || oqs !== nqs) {
-      if (!this.server) {
+      if (isBrowser()) {
         if (mappedPath) {
           mappedPath = mappedPath.replace(window.location.origin, '')
         }
@@ -134,9 +134,9 @@ class Model {
         return queries
       }, {})
 
-      if (this.server) {
+      if (!isBrowser()) {
         const inject = Object.keys(this.queries).reduce((inject, key) => {
-          const query = this.server.req.query
+          const query = this.config.req.query
           if (query.hasOwnProperty(key) && this.queries[key].isInjection) {
             inject[key] = query[key]
           }
@@ -159,30 +159,30 @@ class Model {
   }
 
   getPath() {
-    const path = (!this.server ? window.location.pathname : (this.server.req.originalUrl || '').split(/[?#]/gi)[0]) || '/'
+    const path = (isBrowser() ? window.location.pathname : (this.config.req.originalUrl || '').split(/[?#]/gi)[0]) || '/'
     return (this.reverseMatchIfAny(path) || '/').replace(/\/{2,}/gi, '/')
   }
 
   reload(path) {
     path = path || this.path
     if (path === this.path) {
-      if (!this.server) {
+      if (isBrowser()) {
         window.location.reload()
       }
       else {
-        this.server.res.redirect(path)
+        this.config.res.redirect(path)
       }
     }
     else {
-      if (!this.server) {
+      if (isBrowser()) {
         window.location.href = path
       }
       else {
-        this.server.res.redirect(path)
+        this.config.res.redirect(path)
       }
     }
 
-    if (this.server) {
+    if (!isBrowser()) {
       throw new Exception.Reload()
     }
   }
@@ -193,7 +193,7 @@ class Model {
     this.prevPath = '/'
     this.status = 'resolved'
 
-    if (!this.server) {
+    if (isBrowser()) {
       window._loch = (aTagElement) => {
         const href = aTagElement.getAttribute('href')
         const target = aTagElement.getAttribute('target')
