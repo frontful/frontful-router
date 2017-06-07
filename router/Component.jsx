@@ -1,27 +1,27 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Branch} from './Branch'
-import {Placeholder} from './Placeholder'
+import {Branch} from './Branch.jsx'
+import {Placeholder} from './Placeholder.jsx'
 import {Model} from '.'
 import {resolver} from 'frontful-resolver'
 
 @resolver.config(({models}) => ({
-  router: models.global(Model)
+  model: models.global(Model)
 }))
 @resolver.bind((resolve) => {
-  resolve.once(({router, queries}) => {
-    router.setupQueries(queries)
+  resolve.once(({model, queries}) => {
+    model.setupQueries(queries)
   })
   resolve(
-    ({router, children, hierarchy}) => ({
-      Branch: <Branch hierarchy={hierarchy || children} selector={router.path} />,
+    ({model, children, hierarchy}) => ({
+      Branch: <Branch hierarchy={hierarchy || children} selector={model.path} />,
       router: {
-        path: router.path,
-        push: router.push
+        path: model.path,
+        push: model.push
       }
     }),
-    ({router}) => {
-      router.resolved()
+    ({model}) => {
+      model.resolved()
     },
     () => ({
       Placeholder: <Placeholder />,

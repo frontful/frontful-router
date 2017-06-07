@@ -6,11 +6,15 @@ import {Branch} from './Branch.jsx'
 import {Placeholder} from './Placeholder.jsx'
 import {Exception} from './Exception'
 
-const Router = {
+const Router = Object.assign(Component, {
+  Branch,
   Component,
-  Model,
   Exception,
-}
+  Link,
+  Model,
+  Navigator,
+  Placeholder,
+})
 
 export {
   Branch,

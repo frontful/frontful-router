@@ -1,5 +1,5 @@
 import React from 'react'
-import {Branch} from './Branch'
+import {Branch} from './Branch.jsx'
 import {Model} from './Model'
 import {resolver} from 'frontful-resolver'
 

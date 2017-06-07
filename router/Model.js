@@ -1,22 +1,25 @@
 import queryString from 'query-string'
 import {Exception} from './Exception'
-import {model, format} from 'frontful-model'
+import {model, formatter} from 'frontful-model'
 import {untracked, action} from 'mobx'
 import {isBrowser} from 'frontful-utils'
 
 @model.config((context) => ({
   config: Object.assign({
     mapping: {},
+    req: null,
+    res: null,
   }, context.config['frontful-router']),
 }))
 @model.format({
   path: null,
   prevPath: null,
   status: null,
-  injectionRegister: format.map(),
+  injectionRegister: formatter.map(),
 })
 class Model {
   constructor() {
+    this.initialize()
     this['push'] = this.execute.bind(this, 'push')
     this['replace'] = this.execute.bind(this, 'replace')
     this['pop'] = this.execute.bind(this, 'pop')
@@ -206,7 +209,8 @@ class Model {
         return true
       }
 
-      const createHistory = require('history/createBrowserHistory')
+      const createHistory = require('history/createBrowserHistory').default
+
       this.history = createHistory()
       this.history.listen(action((location) => {
         const query = queryString.parse(location.search)
