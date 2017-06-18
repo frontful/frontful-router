@@ -1,13 +1,11 @@
 import ExtendableError from 'es6-error'
 
-class NotFound extends ExtendableError {}
 class Reload extends ExtendableError {}
 
-const Exception = {
-  NotFound,
+const Exceptions = {
   Reload,
 }
 
 export {
-  Exception,
+  Exceptions,
 }

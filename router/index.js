@@ -1,28 +1,23 @@
-import {Component} from './Component.jsx'
+import {Exceptions} from './Exceptions'
 import {Link} from './Link.jsx'
+import {Match} from './Match.jsx'
 import {Model} from './Model'
 import {Navigator} from './Navigator.jsx'
-import {Branch} from './Branch.jsx'
-import {Placeholder} from './Placeholder.jsx'
-import {Exception} from './Exception'
+import {Router} from './Router.jsx'
 
-const Router = Object.assign(Component, {
-  Branch,
-  Component,
-  Exception,
+Object.assign(Router, {
+  Exceptions,
   Link,
+  Match,
   Model,
   Navigator,
-  Placeholder,
 })
 
 export {
-  Branch,
-  Component,
-  Exception,
+  Exceptions,
   Link,
+  Match,
   Model,
   Navigator,
-  Placeholder,
   Router,
 }

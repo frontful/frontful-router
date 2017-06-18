@@ -2,15 +2,15 @@ import React from 'react'
 import {resolver} from 'frontful-resolver'
 import {Model} from './Model'
 
-@resolver.config(({models}) => ({
+@resolver.define(({models}) => ({
   router: models.global(Model)
 }))
-@resolver.bind((resolve) => {
-  resolve.once(({router, constraints}) => {
-    return constraints().then((forcedPath) => {
-      if (forcedPath) {
-        if (router.path !== forcedPath) {
-          router.replace(forcedPath)
+@resolver((resolve) => {
+  resolve.untracked(({router, constraints}) => {
+    return constraints().then((path) => {
+      if (path) {
+        if (router.path !== path) {
+          router.replace(path)
         }
       }
       return null

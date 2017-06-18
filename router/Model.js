@@ -1,10 +1,10 @@
 import queryString from 'query-string'
-import {Exception} from './Exception'
+import {Exceptions} from './Exceptions'
 import {model, formatter} from 'frontful-model'
 import {untracked, action} from 'mobx'
 import {isBrowser} from 'frontful-utils'
 
-@model.config((context) => ({
+@model.define((context) => ({
   config: Object.assign({
     mapping: {},
     req: null,
@@ -23,6 +23,10 @@ class Model {
     this['push'] = this.execute.bind(this, 'push')
     this['replace'] = this.execute.bind(this, 'replace')
     this['pop'] = this.execute.bind(this, 'pop')
+  }
+
+  setParams = (params) => {
+    this.params = params
   }
 
   @action
@@ -128,13 +132,13 @@ class Model {
     this.status = 'resolved'
   }
 
-  setupQueries(_queries) {
+  setup(queries) {
     untracked(() => {
-      this.queries = Object.keys(_queries || {}).reduce((queries, key) => {
-        const responder = _queries[key]
+      this.queries = Object.keys(queries || {}).reduce((result, key) => {
+        const responder = queries[key]
         const isInjection = Array.isArray(responder)
-        queries[key] = {key, isInjection, responder}
-        return queries
+        result[key] = {key, isInjection, responder}
+        return result
       }, {})
 
       if (!isBrowser()) {
@@ -186,7 +190,7 @@ class Model {
     }
 
     if (!isBrowser()) {
-      throw new Exception.Reload()
+      throw new Exceptions.Reload()
     }
   }
 
