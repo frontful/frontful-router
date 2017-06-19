@@ -201,18 +201,6 @@ class Model {
     this.status = 'resolved'
 
     if (isBrowser()) {
-      window._loch = (aTagElement) => {
-        const href = aTagElement.getAttribute('href')
-        const target = aTagElement.getAttribute('target')
-
-        if (target !== '_blank') {
-          this.push(href)
-          return false
-        }
-
-        return true
-      }
-
       const createHistory = require('history/createBrowserHistory').default
 
       this.history = createHistory()

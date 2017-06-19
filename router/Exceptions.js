@@ -1,6 +1,6 @@
-import ExtendableError from 'es6-error'
+import {Exceptions as ResolverExceptions} from 'frontful-resolver'
 
-class Reload extends ExtendableError {}
+class Reload extends ResolverExceptions.Cancel {}
 
 const Exceptions = {
   Reload,
