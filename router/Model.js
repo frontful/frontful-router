@@ -58,7 +58,7 @@ class Model {
 
   mergeWithInjectionRegister(injections) {
     const injectionKeys = Object.keys(injections)
-    const injectionRegisterKeys = this.injectionRegister.keys()
+    const injectionRegisterKeys = Array.from(this.injectionRegister.keys())
 
     let merged = injectionRegisterKeys.reduce((merged, injectionRegisterKey) => {
       if (injectionKeys.indexOf('_' + injectionRegisterKey) === -1) {

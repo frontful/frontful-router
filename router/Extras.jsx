@@ -8,7 +8,7 @@ import {resolver} from 'frontful-resolver'
 }))
 @resolver((resolve) => {
   resolve(({router}) => {
-    return router.injectionRegister.keys().reduce((items, key) => {
+    return Array.from(router.injectionRegister.keys()).reduce((items, key) => {
       items[key] = (
         <Match path={router.injectionRegister.get(key)}>
           {router.queries[key].responder}

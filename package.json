@@ -1,6 +1,6 @@
 {
   "name": "frontful-router",
-  "version": "2.0.3",
+  "version": "3.0.2",
   "private": true,
   "description": "Router provider for React applications focused on model first approach",
   "license": "MIT",
@@ -17,24 +17,24 @@
   },
   "dependencies": {
     "es6-error": "^4.0.2",
-    "frontful-utils": "2.x",
+    "frontful-utils": "3.x",
     "history": "^4.6.1",
     "path-to-regexp": "^2.0.0",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0"
   },
   "peerDependencies": {
-    "frontful-model": "2.x",
-    "frontful-resolver": "2.x",
-    "mobx": "3.x",
+    "frontful-model": "3.x",
+    "frontful-resolver": "3.x",
+    "mobx": "4.x",
     "react": "16.x"
   },
   "devDependencies": {
-    "babel-preset-frontful": "2.x",
-    "eslint-config-frontful": "2.x",
-    "frontful-model": "2.x",
-    "frontful-resolver": "2.x",
-    "mobx": "3.x",
+    "babel-preset-frontful": "3.x",
+    "eslint-config-frontful": "3.x",
+    "frontful-model": "3.x",
+    "frontful-resolver": "3.x",
+    "mobx": "4.x",
     "react": "16.x",
     "react-dom": "16.x"
   }
