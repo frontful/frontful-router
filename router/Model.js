@@ -103,7 +103,7 @@ class Model {
 
     const queryStr = queryString.stringify(injections)
 
-    const oqs = queryString.stringify(this.injectionRegister.toJS())
+    const oqs = queryString.stringify(this.injectionRegister.toPOJO())
     const nqs = queryStr
 
     if (action === 'push' && this.path === path && oqs !== nqs) {
