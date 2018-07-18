@@ -61,11 +61,13 @@ class Match extends React.PureComponent {
     }
     else {
       let [Item, ...rest] = items
+      let elementProps = {}
       if (React.isValidElement(Item)) {
+        elementProps = Item.props
         Item = Item.type
       }
       return (
-        <Item {...props}>
+        <Item {...elementProps} {...props}>
           {this.hierarchify(rest, null)}
         </Item>
       )
