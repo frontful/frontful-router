@@ -189,9 +189,11 @@ class Model {
       }
     }
 
-    if (!isBrowser()) {
-      throw new Exceptions.Reload()
-    }
+    throw new Exceptions.Reload()
+
+    // if (!isBrowser()) {
+    //   throw new Exceptions.Reload()
+    // }
   }
 
   @action

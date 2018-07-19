@@ -1,6 +1,6 @@
 {
   "name": "frontful-router",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "private": true,
   "description": "Router provider for React applications focused on model first approach",
   "license": "MIT",
