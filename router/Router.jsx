@@ -41,7 +41,12 @@ class Router extends React.PureComponent {
 
   render() {
     const {Match, Extras} = this.props
-    return <Match Extras={Extras} />
+    return (
+      <React.Fragment>
+        <Match />
+        <Extras />
+      </React.Fragment>
+    )
   }
 
   componentDidUpdate() {
